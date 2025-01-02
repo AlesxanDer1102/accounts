@@ -12,7 +12,7 @@ contract SendPackedUserOp is Script {
 
     function run() public {}
 
-    function generatedSignedUserOperation(bytes memory callData, HelperConfig.NetworkConfig memory config)
+    function generateSignedUserOperation(bytes memory callData, HelperConfig.NetworkConfig memory config)
         public
         view
         returns (PackedUserOperation memory)
