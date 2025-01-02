@@ -30,7 +30,7 @@ contract HelperConfig is Script {
     function getConfigByChainId(uint256 chainId) public returns (NetworkConfig memory) {
         if (chainId == LOCAL_CHAIN_ID) {
             return getOrCreateAnvilConfig();
-        } else if (networkConfigs[chainId].entryPoint != address(0)) {
+        } else if (networkConfigs[chainId].account != address(0)) {
             return networkConfigs[chainId];
         } else {
             revert HelperConfig__InvalidChainId();
@@ -46,7 +46,7 @@ contract HelperConfig is Script {
     }
 
     function getOrCreateAnvilConfig() public returns (NetworkConfig memory) {
-        if (localNetworkConfig.entryPoint != address(0)) {
+        if (localNetworkConfig.account != address(0)) {
             return localNetworkConfig;
         }
         // deploy mock entry point
