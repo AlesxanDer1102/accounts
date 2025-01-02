@@ -14,8 +14,8 @@ contract MinimalAccount is IAccount, Ownable {
                                  ERRORS
     //////////////////////////////////////////////////////////////*/
 
-    error MinimalAcccount__NotFromEntryPoint();
-    error MinimalAcccount__NotFromEntryPointOrOwner();
+    error MinimalAccount__NotFromEntryPoint();
+    error MinimalAccount__NotFromEntryPointOrOwner();
     error MimimalAccount__CallFailed(bytes);
 
     /*//////////////////////////////////////////////////////////////
@@ -29,14 +29,14 @@ contract MinimalAccount is IAccount, Ownable {
     //////////////////////////////////////////////////////////////*/
     modifier requireFromEntryPoint() {
         if (msg.sender != address(i_entryPoint)) {
-            revert MinimalAcccount__NotFromEntryPoint();
+            revert MinimalAccount__NotFromEntryPoint();
         }
         _;
     }
 
     modifier requireFromEntryPointOrOwner() {
         if (msg.sender != address(i_entryPoint) && msg.sender != owner()) {
-            revert MinimalAcccount__NotFromEntryPointOrOwner();
+            revert MinimalAccount__NotFromEntryPointOrOwner();
         }
         _;
     }
@@ -55,7 +55,7 @@ contract MinimalAccount is IAccount, Ownable {
                            EXTERNAL FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
-    function execute(address dest, uint256 value, bytes calldata functionData) external requireFromEntryPoint {
+    function execute(address dest, uint256 value, bytes calldata functionData) external requireFromEntryPointOrOwner {
         (bool success, bytes memory result) = dest.call{value: value}(functionData);
         if (!success) {
             revert MimimalAccount__CallFailed(result);
