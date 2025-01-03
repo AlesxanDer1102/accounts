@@ -58,7 +58,7 @@ contract HelperConfig is Script {
         EntryPoint entryPoint = new EntryPoint();
         vm.stopBroadcast();
         localNetworkConfig = NetworkConfig({entryPoint: address(entryPoint), account: ANVIL_DEFAULT_ACCOUNT});
-        
+
         return localNetworkConfig;
     }
 }
